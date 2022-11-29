@@ -1,5 +1,6 @@
 module Math.Integration.Coeficients where
 
+-- | Quadrature coeficients
 a :: [[Double]]
 a =
   [ [2],
@@ -47,6 +48,7 @@ a =
     ]
   ]
 
+-- | Legendre polynomials solution
 t :: [[Double]]
 t =
   [ [0],

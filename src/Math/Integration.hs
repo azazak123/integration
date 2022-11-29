@@ -2,12 +2,15 @@ module Math.Integration where
 
 import Math.Integration.Coeficients
 
+-- | Integrate using left rectangles formula
 integrateLeftRectangle :: Num a => a -> (b -> a) -> [b] -> a
 integrateLeftRectangle h f = integrateRectangle h f . init
 
+-- | Integrate using right rectangles formula
 integrateRightRectangle :: Num a => a -> (b -> a) -> [b] -> a
 integrateRightRectangle h f = integrateRectangle h f . tail
 
+-- | Integrate using middle rectangles formula
 integrateMiddleRectangle :: (Num a, Fractional b) => a -> (b -> a) -> [b] -> a
 integrateMiddleRectangle h f xs =
   integrateRectangle h f
@@ -21,6 +24,7 @@ integrateMiddleRectangle h f xs =
 integrateRectangle :: (Num a, Foldable t, Functor t) => a -> (b -> a) -> t b -> a
 integrateRectangle h f = (*) h . sum . fmap f
 
+-- | Integrate using trapeziums formula
 integrateTrapezium :: Fractional a => a -> (b -> a) -> [b] -> a
 integrateTrapezium h f xs =
   (+) addend
@@ -31,6 +35,7 @@ integrateTrapezium h f xs =
   where
     addend = (h / 2) * (f (head xs) + f (last xs))
 
+-- | Integrate using Simpson formula
 integrateSimpson :: Fractional a => a -> (b -> a) -> [b] -> a
 integrateSimpson h f xs =
   (*) h
@@ -49,6 +54,7 @@ integrateSimpson h f xs =
         $ xs
     addend = f (head xs) + f (last xs)
 
+-- | Integrate using Gaussian quadrature
 integrateGauss :: Int -> (Double -> Double) -> [Double] -> Double
 integrateGauss n f xs =
   (*) sub
